@@ -98,10 +98,23 @@ for (i = 0 ; i < card.length; i++) {
 deck.addEventListener("click", function openCard(e){
     e.preventDefault();
     e.target.className += " open";
-    setTimeout(function(){e.target.className += " show";},300); //Displays class show with a little delay
+    setTimeout(function() {
+        e.target.className += " show selected"; 
+        checkMatch();
+    },
+        300); //Displays class show with a little delay
 
 });
 
+//Fires after openCard ran; Check data-value-card
+function checkMatch(){
+    if(document.getElementsByClassName("selected").length==2) {
+        var cardVal1 = document.querySelector(".selected img").getAttribute("data-card-value"); //data-card-value of first card
+        var cardVal2 = document.querySelector(".selected:nth-child(2) img").getAttribute("data-card-value"); //data-card-value of second card
+        console.log("card values are" + cardVal1, cardVal2);
+
+    }
+}
 
 
 
