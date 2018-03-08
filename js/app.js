@@ -101,8 +101,19 @@ console.log(deck);
 for (i = 0 ; i < card.length; i++) {
     card[i].children.item(0).setAttribute('src', cards[i].img);
     card[i].children.item(0).setAttribute('data-card-value', cards[i].dataValue);
-
   }
+
+deck.addEventListener("click", function openCard(e){
+    console.log("openCard was fired");
+    e.preventDefault();
+    e.target.className += " open";
+    setTimeout(500);
+    e.target.className += " show";
+
+});
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
