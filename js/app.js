@@ -1,6 +1,5 @@
-/*
- * Create a list that holds all of your cards
- */
+// Array that holds all image-paths and data-*
+
 cards = 
 [
     {
@@ -72,12 +71,6 @@ cards =
 var deck = document.querySelector(".deck"); //ul that holds all cards (li)
 var card = document.querySelectorAll(".card"); //li that holds card
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -95,19 +88,17 @@ function shuffle(array) {
 }
 shuffle(cards);
 
-console.log("newliy arragend card-array:" + cards);
-console.log(deck);
-
+//Append values from array to ul
 for (i = 0 ; i < card.length; i++) {
     card[i].children.item(0).setAttribute('src', cards[i].img);
     card[i].children.item(0).setAttribute('data-card-value', cards[i].dataValue);
   }
 
+//Turning card over
 deck.addEventListener("click", function openCard(e){
     e.preventDefault();
     e.target.className += " open";
-    setTimeout(function(){e.target.className += " show";
-},300);
+    setTimeout(function(){e.target.className += " show";},300); //Displays class show with a little delay
 
 });
 
