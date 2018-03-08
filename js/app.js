@@ -1,7 +1,76 @@
 /*
  * Create a list that holds all of your cards
  */
+cards = 
+[
+    {
+        dataValue:1,
+        img:"img/beach.png"
+    },
+    {
+        dataValue:1,
+        img:"img/beach.png"
+    },
+    {
+        dataValue:2,
+        img:"img/bigben.png"
+    },
+    {
+        dataValue:2,
+        img:"img/bigben.png"
+    },
+    {
+        dataValue:3,
+        img:"img/eiffel.png"
+    },
+    {
+        dataValue:3,
+        img:"img/eiffel.png"
+    },
+    {
+        dataValue:4,
+        img:"img/liberty.png"
+    },
+    {
+        dataValue:4,
+        img:"img/liberty.png"
+    },
+    {
+        dataValue:5,
+        img:"img/mosque.png"
+    },
+    {
+        dataValue:5,
+        img:"img/mosque.png"
+    },
+    {
+        dataValue:6,
+        img:"img/opera.png"
+    },
+    {
+        dataValue:6,
+        img:"img/opera.png"
+    },
+    {
+        dataValue:7,
+        img:"img/pisa.png"
+    },
+    {
+        dataValue:7,
+        img:"img/pisa.png"
+    },
+    {
+        dataValue:8,
+        img:"img/temple.png"
+    },
+    {
+        dataValue:8,
+        img:"img/temple.png"
+    }
+]
 
+var deck = document.querySelector(".deck"); //ul that holds all cards (li)
+var card = document.querySelectorAll(".card"); //li that holds card
 
 /*
  * Display the cards on the page
@@ -11,8 +80,6 @@
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-
-
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -26,7 +93,16 @@ function shuffle(array) {
 
     return array;
 }
+shuffle(cards);
 
+console.log("newliy arragend card-array:" + cards);
+console.log(deck);
+
+for (i = 0 ; i < card.length; i++) {
+    card[i].children.item(0).setAttribute('src', cards[i].img);
+    card[i].children.item(0).setAttribute('data-card-value', cards[i].dataValue);
+
+  }
 
 /*
  * set up the event listener for a card. If a card is clicked:
