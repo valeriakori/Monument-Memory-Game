@@ -104,11 +104,10 @@ for (i = 0 ; i < card.length; i++) {
   }
 
 deck.addEventListener("click", function openCard(e){
-    console.log("openCard was fired");
     e.preventDefault();
     e.target.className += " open";
-    setTimeout(500);
-    e.target.className += " show";
+    setTimeout(function(){e.target.className += " show";
+},300);
 
 });
 
