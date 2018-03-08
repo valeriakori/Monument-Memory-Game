@@ -111,8 +111,10 @@ function checkMatch(){
     if(document.getElementsByClassName("selected").length==2) {
         var cardVal1 = document.querySelector(".selected img").getAttribute("data-card-value"); //data-card-value of first card
         var cardVal2 = document.querySelector(".selected:nth-child(2) img").getAttribute("data-card-value"); //data-card-value of second card
-        console.log("card values are" + cardVal1, cardVal2);
-
+        console.log(cardVal1, cardVal2);
+        //  if (cardVal1==cardVal2) {
+        //      console.log("its a match");
+        // } 
     }
 }
 
