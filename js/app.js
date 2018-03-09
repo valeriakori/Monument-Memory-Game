@@ -68,8 +68,8 @@ cards =
     }
 ]
 
-var deck = document.querySelector(".deck"); //ul that holds all cards (li)
-var card = document.querySelectorAll(".card"); //li that holds card
+var deck = document.querySelector(".deck"); //ul that holds all cards (li-elements)
+var card = document.querySelectorAll(".card"); //li that holds card (img-elements)
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -90,8 +90,8 @@ shuffle(cards);
 
 //Append values from array to ul
 for (i = 0 ; i < card.length; i++) {
-    card[i].children.item(0).setAttribute('src', cards[i].img);
-    card[i].children.item(0).setAttribute('data-card-value', cards[i].dataValue);
+    card[i].children.item(0).setAttribute('src', cards[i].img); //Assigns img-path to img tag
+    card[i].setAttribute('data-card-value', cards[i].dataValue); //Assigns data-card-value to li
   }
 
 //Turning card over
@@ -100,23 +100,40 @@ deck.addEventListener("click", function openCard(e){
     e.target.className += " open";
     setTimeout(function() {
         e.target.className += " show selected"; 
-        checkMatch();
+        var cardVal = e.target.getAttribute("data-card-value");
+        
+        console.log(cardVal);
+        
+        //checkMatch();
+        if(document.getElementsByClassName("selected").length==2) {
+            var cardVal1 = document.querySelector(".selected").getAttribute("data-card-value"); //data-card-value of first card
+            var cardVal2 = document.querySelector(".selected:nth-child(2)").getAttribute("data-card-value");
+            console.log("2 cards selected and they are", cardVal1, cardVal2 );
+            if(cardVal1==cardVal2) {
+                console.log("its a match")
+            } else {
+                console.log("not a match");
+            }
+        }
+
     },
         300); //Displays class show with a little delay
 
 });
 
 //Fires after openCard ran; Check data-value-card
-function checkMatch(){
-    if(document.getElementsByClassName("selected").length==2) {
-        var cardVal1 = document.querySelector(".selected img").getAttribute("data-card-value"); //data-card-value of first card
-        var cardVal2 = document.querySelector(".selected:nth-child(2) img").getAttribute("data-card-value"); //data-card-value of second card
-        console.log(cardVal1, cardVal2);
+//function checkMatch(){
+    //if(document.getElementsByClassName("selected").length==2) {
+        //var cardVal1 = document.querySelector(".selected img").getAttribute("data-card-value"); //data-card-value of first card
+        //var cardVal2 = document.querySelector(".selected:nth-child(2) img").getAttribute("data-card-value"); //data-card-value of second card
+        //console.log(cardVal1, cardVal2);
         //  if (cardVal1==cardVal2) {
         //      console.log("its a match");
-        // } 
-    }
-}
+        // } else {
+        //     console.log("they dont match");
+        // }
+    //}
+//}
 
 
 
