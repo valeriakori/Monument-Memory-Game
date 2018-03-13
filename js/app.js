@@ -94,26 +94,37 @@ for (i = 0 ; i < card.length; i++) {
     card[i].setAttribute('data-card-value', cards[i].dataValue); //Assigns data-card-value to li
   }
 
+
+var arrayOfSelectedCards = [];
+
 //Turning card over
 deck.addEventListener("click", function openCard(e){
     e.preventDefault();
     e.target.className += " open";
     setTimeout(function() {
         e.target.className += " show selected"; 
-        var cardVal = e.target.getAttribute("data-card-value");
+
+        var cardVal = e.target.getAttribute("data-card-value"); //Fetch data-card-value of selected card
         
-        console.log(cardVal);
+        //console.log(cardVal);
+        arrayOfSelectedCards.push(cardVal);
+        console.log(arrayOfSelectedCards);
         
-        //checkMatch();
-        if(document.getElementsByClassName("selected").length==2) {
-            var cardVal1 = document.querySelector(".selected").getAttribute("data-card-value"); //data-card-value of first card
-            var cardVal2 = document.querySelector(".selected:nth-child(2)").getAttribute("data-card-value");
-            console.log("2 cards selected and they are", cardVal1, cardVal2 );
-            if(cardVal1==cardVal2) {
-                console.log("its a match")
-            } else {
-                console.log("not a match");
-            }
+            if(arrayOfSelectedCards.length==2) {
+           
+            console.log("2 cards selected and they are", arrayOfSelectedCards);
+
+                if(arrayOfSelectedCards[0]==arrayOfSelectedCards[1]) {
+                    console.log("its a match");
+                    arrayOfSelectedCards=[];
+                } else {
+                    console.log("not a match");
+                    arrayOfSelectedCards=[];
+                    //document.querySelectorAll(".selected").classList.remove(open, show, selected);
+                    var selCards = document.querySelectorAll(".selected");
+                    console.log(selCards);
+
+                }
         }
 
     },
@@ -122,18 +133,18 @@ deck.addEventListener("click", function openCard(e){
 });
 
 //Fires after openCard ran; Check data-value-card
-//function checkMatch(){
-    //if(document.getElementsByClassName("selected").length==2) {
-        //var cardVal1 = document.querySelector(".selected img").getAttribute("data-card-value"); //data-card-value of first card
-        //var cardVal2 = document.querySelector(".selected:nth-child(2) img").getAttribute("data-card-value"); //data-card-value of second card
-        //console.log(cardVal1, cardVal2);
-        //  if (cardVal1==cardVal2) {
-        //      console.log("its a match");
-        // } else {
-        //     console.log("they dont match");
-        // }
-    //}
-//}
+// function checkMatch(){
+//     if(document.getElementsByClassName("selected").length==2) {
+//         var cardVal1 = document.querySelector(".selected img").getAttribute("src"); //data-card-value of first card
+//         var cardVal2 = document.querySelector(".selected:nth-child(2) img").getAttribute("src"); //data-card-value of second card
+//         console.log(cardVal1, cardVal2);
+//          if (cardVal1==cardVal2) {
+//              console.log("its a match");
+//         } else {
+//             console.log("they dont match");
+//         }
+//     }
+// }
 
 
 
