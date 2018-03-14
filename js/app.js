@@ -131,6 +131,7 @@ deck.addEventListener("click", function openCard(e){
             
                 if (arrayOfSelectedCards[0]==arrayOfSelectedCards[1]) {
 
+                    //Animate Selected Cards
                     selectedCardOne.className += " animated tada";
                     selectedCardTwo.className += " animated tada";
 
@@ -141,19 +142,31 @@ deck.addEventListener("click", function openCard(e){
                 } 
                 else {  
 
+                    //Animate Selected Cards
                     selectedCardOne.className += " animated wobble";
                     selectedCardTwo.className += " animated wobble";
 
-                    //Reset of Array and cardCounter
-                    arrayOfSelectedCards=[];
-                    cardCounter = 0;
+                    selectedCardOne.classList.remove("open");
+                    selectedCardTwo.classList.remove("open");
+
+                    selectedCardOne.classList.add("open");
+                    selectedCardTwo.classList.add("open");
+
+                    setTimeout(function(){
+                        selectedCardOne.classList.remove("open", "show", "selected", "animated", "wobble");
+                        selectedCardTwo.classList.remove("open", "show", "selected", "animated", "wobble");
+                        
+                        //Reset of Array and cardCounter
+                        arrayOfSelectedCards=[];
+                        cardCounter = 0;
+
+                    },300)
                 }
             }
 
         },300); //Displays class show with a little delay
     }
 });
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
