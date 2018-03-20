@@ -68,9 +68,49 @@ cards =
     }
 ]
 
+/******************************* 
+** Selector of deck and cards **
+********************************/
+
 var deck = document.querySelector(".deck"); //ul that holds all cards (li-elements)
 var card = document.querySelectorAll(".card"); //li that holds card (img-elements)
 
+/***************************************************
+** Helping variables to declare and compare Cards **
+****************************************************/
+
+var arrayOfSelectedCards = []; //Array that will hold data-card-value of selected cards in order to compare them
+var cardCounter = 0; //Click counter, 1 after first selected card, resets to 0 after second selected card
+var selectedCardOne = ""; //First selected card, will be declared after click on one card
+var selectedCardTwo = ""; //Second selected card, will be declared after click on another card
+
+/************************************* 
+** Selector of icons in score panel **
+**************************************/
+
+var moves = document.getElementsByClassName("moves");
+var numberOfMoves = 0; //Initial value of moves
+var repeat = document.getElementsByClassName("restart");
+var stars = document.getElementsByClassName("stars");
+
+/******************************************* 
+** Selector of modal and respective spans **
+********************************************/
+
+var modalDisplay = document.getElementsByClassName("modal-bg");
+var starModal = document.getElementsByClassName("stars-modal");
+var timeModal = document.getElementsByClassName("time-modal");
+
+
+/****************************************************
+** Functions that initialize values and start game **
+*****************************************************/
+
+(function gameInit(){
+    moves.innerText = numberOfMoves;
+    console.log(moves.innerText);
+    shuffle(cards);
+})();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -86,19 +126,12 @@ function shuffle(array) {
 
     return array;
 }
-shuffle(cards);
 
 //Append values from array to ul
 for (i = 0 ; i < card.length; i++) {
     card[i].children.item(0).setAttribute("src", cards[i].img); //Assigns img-path to img tag
     card[i].setAttribute("data-card-value", cards[i].dataValue); //Assigns data-card-value to li
   }
-
-
-var arrayOfSelectedCards = [];
-var cardCounter = 0;
-var selectedCardOne = "";
-var selectedCardTwo = "";
 
 //Turning card over
 deck.addEventListener("click", function openCard(e){
@@ -107,11 +140,11 @@ deck.addEventListener("click", function openCard(e){
 
     if (e.target.hasAttribute("data-card-value")) {
 
-        e.target.className += " open";
+        e.target.className += " open"; //Adds flip animation to selected card
 
         setTimeout(function() {
 
-            e.target.className += " show selected";
+            e.target.className += " show selected"; //Shows image of selected card and adds helping class of selected
             
             //Fetching data-card-value of selected card 
             var cardVal = e.target.getAttribute("data-card-value"); 
@@ -119,16 +152,16 @@ deck.addEventListener("click", function openCard(e){
 
             if (cardCounter == 0) {
                 selectedCardOne = e.target;
-                console.log(selectedCardOne);
                 cardCounter++;
             } else if (cardCounter==1) {
                 selectedCardTwo = e.target;
-                console.log(selectedCardTwo);
             }
 
             //Comparing Elements of arrayOfSelectedCards
             if (arrayOfSelectedCards.length == 2) {
             
+                changeScore(); //Calls addMove function to add 1 to the # of moves
+
                 if (arrayOfSelectedCards[0]==arrayOfSelectedCards[1]) {
 
                     //Animate Selected Cards
@@ -146,6 +179,7 @@ deck.addEventListener("click", function openCard(e){
                     selectedCardOne.className += " animated wobble";
                     selectedCardTwo.className += " animated wobble";
 
+                    //Add flip animation
                     selectedCardOne.classList.remove("open");
                     selectedCardTwo.classList.remove("open");
 
@@ -153,6 +187,8 @@ deck.addEventListener("click", function openCard(e){
                     selectedCardTwo.classList.add("open");
 
                     setTimeout(function(){
+
+                        //Remove all unnessecary classes to reset cards for further moves
                         selectedCardOne.classList.remove("open", "show", "selected", "animated", "wobble");
                         selectedCardTwo.classList.remove("open", "show", "selected", "animated", "wobble");
                         
@@ -164,17 +200,26 @@ deck.addEventListener("click", function openCard(e){
                 }
             }
 
+            if (document.getElementsByClassName("selected").length == 16) {
+                showModal();
+            }
+
         },300); //Displays class show with a little delay
     }
 });
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function changeScore() {
+    numberOfMoves++;
+    moves.innerText = numberOfMoves;
+    console.log(moves.innerText);
+
+
+    if (numberOfMoves == 12) {
+        //remove one star
+    } else if (numberOfMoves == 16) {
+        //remove second star
+    }
+}
+
+function showModal() {
+}
