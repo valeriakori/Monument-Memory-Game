@@ -146,7 +146,7 @@ for (i = 0 ; i < card.length; i++) {
 deck.addEventListener("click", function openCard(e){
 
     e.preventDefault();
-    startTimer(); //Starts timer TODO perform this action only once!
+    startTimer(); //Starts timer 
 
     if (e.target.hasAttribute("data-card-value")) {
 
@@ -189,24 +189,29 @@ deck.addEventListener("click", function openCard(e){
                     selectedCardOne.className += " animated wobble";
                     selectedCardTwo.className += " animated wobble";
 
-                    //Add flip animation
-                    selectedCardOne.classList.remove("open");
-                    selectedCardTwo.classList.remove("open");
-
-                    selectedCardOne.classList.add("open");
-                    selectedCardTwo.classList.add("open");
-
                     setTimeout(function(){
 
-                        //Remove all unnessecary classes to reset cards for further moves
-                        selectedCardOne.classList.remove("open", "show", "selected", "animated", "wobble");
-                        selectedCardTwo.classList.remove("open", "show", "selected", "animated", "wobble");
-                        
-                        //Reset of Array and cardCounter
-                        arrayOfSelectedCards=[];
-                        cardCounter = 0;
+                        //Add flip animation
+                        selectedCardOne.classList.remove("open");
+                        selectedCardTwo.classList.remove("open");
 
-                    },300)
+                        selectedCardOne.classList.add("open");
+                        selectedCardTwo.classList.add("open");
+
+                        setTimeout(function(){
+
+                            //Remove all unnessecary classes to reset cards for further moves
+                            selectedCardOne.classList.remove("open", "show", "selected", "animated", "wobble");
+                            selectedCardTwo.classList.remove("open", "show", "selected", "animated", "wobble");
+                            
+                            //Reset of Array and cardCounter
+                            arrayOfSelectedCards=[];
+                            cardCounter = 0;
+
+                        },300)
+
+                    },800);
+
                 }
             }
 
