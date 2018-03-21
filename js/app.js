@@ -112,10 +112,10 @@ var timeModal = document.getElementsByClassName("time-modal");
 ** Functions that initialize values and start game **
 *****************************************************/
 
-// (function gameInit(){
-//     moves.innerText = numberOfMoves;
-//     console.log(moves.innerText);
-// })();
+(function gameInit(){
+    moves.innerText = numberOfMoves;
+    console.log(moves.innerText);
+})();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -224,11 +224,10 @@ deck.addEventListener("click", function openCard(e){
 });
 
 function changeScore() {
-    console.log(moves.innerHTML);
 
     numberOfMoves++;
     moves.innerHTML = numberOfMoves;
-    //console.log(moves.innerHTML);
+    console.log(moves.innerHTML);
 
 
     if (numberOfMoves == 12) {
