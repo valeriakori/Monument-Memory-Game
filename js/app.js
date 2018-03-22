@@ -88,12 +88,12 @@ var selectedCardTwo = ""; //Second selected card, will be declared after click o
 ** Selector of icons in score panel **
 **************************************/
 
-var moves = document.getElementsByClassName("moves");
+var moves = document.querySelector(".moves");
 var numberOfMoves = 0; //Initial value of moves
 
-var restart = document.getElementsByClassName("restart");
+var restart = document.querySelectorAll("restart");
 
-var stars = document.getElementsByClassName("stars");
+var stars = document.getElementById("stars");
 
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
@@ -103,19 +103,21 @@ var totalSeconds = 0;
 ** Selector of modal and respective spans **
 ********************************************/
 
-var modalDisplay = document.getElementsByClassName("modal-bg");
-var starModal = document.getElementsByClassName("stars-modal");
-var timeModal = document.getElementsByClassName("time-modal");
+var modalDisplay = document.querySelector(".modal-bg");
+var starModal = document.querySelector(".stars-modal");
+var minModal = document.querySelector(".minutes-modal");
+var secModal = document.querySelector(".seconds-modal");
+var movesModal = document.querySelector(".moves-modal");
 
 
 /****************************************************
 ** Functions that initialize values and start game **
 *****************************************************/
 
-(function gameInit(){
-    moves.innerText = numberOfMoves;
-    console.log(moves.innerText);
-})();
+// (function gameInit(){
+//     moves.innerText = numberOfMoves;
+//     console.log(moves.innerText);
+// })();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -175,8 +177,8 @@ deck.addEventListener("click", function openCard(e){
                 if (arrayOfSelectedCards[0]==arrayOfSelectedCards[1]) {
 
                     //Animate Selected Cards
-                    selectedCardOne.className += " animated tada";
-                    selectedCardTwo.className += " animated tada";
+                    selectedCardOne.className += " animated tada match";
+                    selectedCardTwo.className += " animated tada match";
 
                     //Reset of Array and cardCounter
                     arrayOfSelectedCards=[];
@@ -191,49 +193,40 @@ deck.addEventListener("click", function openCard(e){
 
                     setTimeout(function(){
 
-                        //Add flip animation
-                        selectedCardOne.classList.remove("open");
-                        selectedCardTwo.classList.remove("open");
-
-                        selectedCardOne.classList.add("open");
-                        selectedCardTwo.classList.add("open");
-
-                        setTimeout(function(){
-
-                            //Remove all unnessecary classes to reset cards for further moves
-                            selectedCardOne.classList.remove("open", "show", "selected", "animated", "wobble");
-                            selectedCardTwo.classList.remove("open", "show", "selected", "animated", "wobble");
-                            
-                            //Reset of Array and cardCounter
-                            arrayOfSelectedCards=[];
-                            cardCounter = 0;
-
-                        },300)
+                        //Remove all unnessecary classes to reset cards for further moves
+                        selectedCardOne.classList.remove("open", "show", "selected", "animated", "wobble");
+                        selectedCardTwo.classList.remove("open", "show", "selected", "animated", "wobble");
+                        
+                        //Reset of Array and cardCounter
+                        arrayOfSelectedCards=[];
+                        cardCounter = 0;
 
                     },800);
 
                 }
             }
 
-            if (document.getElementsByClassName("selected").length == 16) {
-                showModal();
+            if (document.getElementsByClassName("match").length == 16) {
+                //showModal();
+                setTimeout(function(){showModal();},800)
             }
 
-        },300); //Displays class show with a little delay
+        },300); //Displays class show with a delay of ~.3 sec
     }
 });
 
 function changeScore() {
 
     numberOfMoves++;
-    moves.innerHTML = numberOfMoves;
-    console.log(moves.innerHTML);
-
+    moves.innerText = numberOfMoves;
+    console.log(stars.innerHTML);
 
     if (numberOfMoves == 12) {
-        //remove one star
+        //remove first star
+        document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
     } else if (numberOfMoves == 16) {
         //remove second star
+        document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
     }
 }
 
@@ -248,19 +241,22 @@ var startTimer = (function() {
             executed = true;
             setInterval(setTime, 1000);
             function setTime() {
-                ++totalSeconds;
+                if (document.getElementsByClassName("match").length < 16) {
+                    ++totalSeconds;
+                }
                 secondsLabel.innerHTML = pad(totalSeconds % 60);
                 minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-              }
+            }
               
-              function pad(val) {
+            function pad(val) {
                 var valString = val + "";
                 if (valString.length < 2) {
                   return "0" + valString;
                 } else {
                   return valString;
-                }
-              }
+                } 
+                
+            }
         }
     };
 })();
@@ -268,4 +264,10 @@ var startTimer = (function() {
 
 
 function showModal() {
+    modalDisplay.style.display = "flex";
+
+    movesModal.innerText = numberOfMoves;
+    starModal.innerHTML = stars.innerHTML;
+    minModal.innerHTML = minutesLabel.innerHTML;
+    secModal.innerHTML = secondsLabel.innerHTML;
 }
