@@ -109,14 +109,14 @@ img {
     justify-content: space-evenly;
 }
 
-.score-panel .stars {
+.score-panel #stars {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.score-panel #stars li {
     list-style: none;
     display: inline-block;
 }
@@ -152,6 +152,16 @@ img {
 .modal-content p {
     font-size: 23px;
 }
-.modal-content span {
-    background-color: rebeccapurple;
+
+.modal-content .stars-modal {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
 }
+
+.modal-content .stars-modal li {
+    list-style: none;
+    display: inline-block;
+}
+
