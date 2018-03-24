@@ -284,7 +284,17 @@ restart.addEventListener("click", function restartGame(){
     // document.querySelectorAll(".animated");
     // document.querySelectorAll(".wobble");
     // document.querySelectorAll(".tada");
+    
+    
+//     document.querySelectorAll(".open").classList.remove("open");
+//     document.querySelectorAll(".show").classList.remove("show");
+//     document.querySelectorAll(".selected").classList.remove("selected");
+//     document.querySelectorAll(".match").classList.remove("match");
+//     document.querySelectorAll(".animated").classList.remove("animated");
+//     document.querySelectorAll(".wobble").classList.remove("wobble");
+//     document.querySelectorAll(".tada").classList.remove("tada");
 
+    console.log("reset game was fired");
     shuffle(cards);
     arrayOfSelectedCards=[];
     selectedCardOne = "";
