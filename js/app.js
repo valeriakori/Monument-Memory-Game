@@ -91,9 +91,20 @@ var selectedCardTwo = ""; //Second selected card, will be declared after click o
 var moves = document.querySelector(".moves");
 var numberOfMoves = 0; //Initial value of moves
 
-var restart = document.querySelectorAll("restart");
+var restart = document.querySelector(".restart");
 
 var stars = document.getElementById("stars");
+var starsReset = 
+`<li>
+    <i class="fa fa-star"></i>
+</li>
+<li>
+    <i class="fa fa-star"></i>
+</li>
+<li>
+    <i class="fa fa-star"></i>
+</li>
+`
 
 var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
@@ -150,6 +161,7 @@ deck.addEventListener("click", function openCard(e){
     e.preventDefault();
     startTimer(); //Starts timer 
 
+    // && !e.target.classList("open", "show", "selected") to differentiate
     if (e.target.hasAttribute("data-card-value")) {
 
         e.target.className += " open"; //Adds flip animation to selected card
@@ -184,8 +196,10 @@ deck.addEventListener("click", function openCard(e){
                     arrayOfSelectedCards=[];
                     cardCounter = 0;
 
-                } 
-                else {  
+                    selectedCardOne = "";
+                    selectedCardTwo = "";
+
+                } else {  
 
                     //Animate Selected Cards
                     selectedCardOne.className += " animated wobble";
@@ -201,6 +215,9 @@ deck.addEventListener("click", function openCard(e){
                         arrayOfSelectedCards=[];
                         cardCounter = 0;
 
+                        selectedCardOne = "";
+                        selectedCardTwo = "";
+
                     },800);
 
                 }
@@ -215,11 +232,31 @@ deck.addEventListener("click", function openCard(e){
     }
 });
 
+
+// Closure Function from https://stackoverflow.com/questions/12713564/function-in-javascript-that-can-be-called-only-once
+// Closure makes it that the function setTime(); can only be called once
+
+var startTimer = (function() {
+    var executed = false;
+    return function() {
+        if (!executed) {
+            executed = true;
+            setInterval(function setTime() {
+                if (document.getElementsByClassName("match").length < 16) {
+                    ++totalSeconds;
+                }
+                secondsLabel.innerHTML = totalSeconds;
+            }, 1000);
+        }
+    };
+})();
+
+//Increases the amount of moves after each check
+//Removes li/star after set amount of moves
 function changeScore() {
 
     numberOfMoves++;
     moves.innerText = numberOfMoves;
-    console.log(stars.innerHTML);
 
     if (numberOfMoves == 12) {
         //remove first star
@@ -230,44 +267,30 @@ function changeScore() {
     }
 }
 
-// Closure Function from https://stackoverflow.com/questions/12713564/function-in-javascript-that-can-be-called-only-once
-// Closure makes it that the function setTime(); can only be called once
-// Timer Functions from https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-
-var startTimer = (function() {
-    var executed = false;
-    return function() {
-        if (!executed) {
-            executed = true;
-            setInterval(setTime, 1000);
-            function setTime() {
-                if (document.getElementsByClassName("match").length < 16) {
-                    ++totalSeconds;
-                }
-                secondsLabel.innerHTML = pad(totalSeconds % 60);
-                minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-            }
-              
-            function pad(val) {
-                var valString = val + "";
-                if (valString.length < 2) {
-                  return "0" + valString;
-                } else {
-                  return valString;
-                } 
-                
-            }
-        }
-    };
-})();
-
-
 
 function showModal() {
     modalDisplay.style.display = "flex";
 
     movesModal.innerText = numberOfMoves;
     starModal.innerHTML = stars.innerHTML;
-    minModal.innerHTML = minutesLabel.innerHTML;
     secModal.innerHTML = secondsLabel.innerHTML;
 }
+
+restart.addEventListener("click", function restartGame(){
+    // document.querySelectorAll(".open");
+    // document.querySelectorAll(".show");
+    // document.querySelectorAll(".selected");
+    // document.querySelectorAll(".match");
+    // document.querySelectorAll(".animated");
+    // document.querySelectorAll(".wobble");
+    // document.querySelectorAll(".tada");
+
+    shuffle(cards);
+    arrayOfSelectedCards=[];
+    selectedCardOne = "";
+    selectedCardTwo = "";
+    numberOfMoves = 0;
+    moves.innerText = 0;
+    secondsLabel.innerHTML = 0;
+    stars.innerHTML = starsReset;
+});
