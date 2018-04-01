@@ -74,6 +74,8 @@ cards =
 
 var deck = document.querySelector(".deck"); //ul that holds all cards (li-elements)
 var card = document.querySelectorAll(".card"); //li that holds card (img-elements)
+var cardArray = [...card];
+
 
 /***************************************************
 ** Helping variables to declare and compare Cards **
@@ -106,7 +108,7 @@ var starsReset =
 </li>
 `
 
-var minutesLabel = document.getElementById("minutes");
+//var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
 
@@ -189,8 +191,8 @@ deck.addEventListener("click", function openCard(e){
                 if (arrayOfSelectedCards[0]==arrayOfSelectedCards[1]) {
 
                     //Animate Selected Cards
-                    selectedCardOne.className += " animated tada match";
-                    selectedCardTwo.className += " animated tada match";
+                    selectedCardOne.className += " animated tada matched";
+                    selectedCardTwo.className += " animated tada matched";
 
                     //Reset of Array and cardCounter
                     arrayOfSelectedCards=[];
@@ -223,7 +225,7 @@ deck.addEventListener("click", function openCard(e){
                 }
             }
 
-            if (document.getElementsByClassName("match").length == 16) {
+            if (document.getElementsByClassName("matched").length == 16) {
                 //showModal();
                 setTimeout(function(){showModal();},800)
             }
@@ -242,14 +244,37 @@ var startTimer = (function() {
         if (!executed) {
             executed = true;
             setInterval(function setTime() {
-                if (document.getElementsByClassName("match").length < 16) {
+                //totalSeconds = 0;
+                if (document.getElementsByClassName("matched").length < 16) {
                     ++totalSeconds;
+                } else if (document.getElementsByClassName("matched").length == 16) {
+                    clearInterval();
                 }
                 secondsLabel.innerHTML = totalSeconds;
             }, 1000);
         }
     };
 })();
+
+
+// function startTimer(){
+//     var interval = 0;
+//     if (!interval) {
+//         interval = setInterval(increaseTimer, 1000);
+//     }
+// }
+
+// function increaseTimer(){
+//     if (document.getElementsByClassName("matched").length < 16) {
+//         ++totalSeconds;
+//     } else if (document.getElementsByClassName("matched").length == 16) {
+//         clearInterval();
+//     }
+//     secondsLabel.innerHTML = totalSeconds;
+// }
+
+
+
 
 //Increases the amount of moves after each check
 //Removes li/star after set amount of moves
@@ -277,30 +302,24 @@ function showModal() {
 }
 
 restart.addEventListener("click", function restartGame(){
-    // document.querySelectorAll(".open");
-    // document.querySelectorAll(".show");
-    // document.querySelectorAll(".selected");
-    // document.querySelectorAll(".match");
-    // document.querySelectorAll(".animated");
-    // document.querySelectorAll(".wobble");
-    // document.querySelectorAll(".tada");
-    
-    
-//     document.querySelectorAll(".open").classList.remove("open");
-//     document.querySelectorAll(".show").classList.remove("show");
-//     document.querySelectorAll(".selected").classList.remove("selected");
-//     document.querySelectorAll(".match").classList.remove("match");
-//     document.querySelectorAll(".animated").classList.remove("animated");
-//     document.querySelectorAll(".wobble").classList.remove("wobble");
-//     document.querySelectorAll(".tada").classList.remove("tada");
 
-    console.log("reset game was fired");
+    console.log("resarted");
+    for ( var x = 0; x <= cardArray.length; x++) {
+        cardArray[x].classList.remove("open", "show", "selected", "animated", "wobble", "tada", "matched");
+    };  //works
+    stars.innerHTML = starsReset; //works
+
+    clearInterval(setTime);
+    secondsLabel.innerHTML = "00";
+
+
     shuffle(cards);
     arrayOfSelectedCards=[];
     selectedCardOne = "";
     selectedCardTwo = "";
     numberOfMoves = 0;
-    moves.innerText = 0;
-    secondsLabel.innerHTML = 0;
-    stars.innerHTML = starsReset;
+    moves.innerText = 0; 
+    secondsLabel.innerHTML = 00;
+
+    console.log("");
 });
