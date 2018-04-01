@@ -109,7 +109,7 @@ var starsReset =
 `
 
 //var minutesLabel = document.getElementById("minutes");
-var secondsLabel = document.getElementById("seconds");
+var secondsLabel = document.querySelector(".seconds");
 var totalSeconds = 0;
 var interval = "";
 
@@ -294,8 +294,11 @@ function restartGame(){
     moves.innerText = 0;    //reset moves
     stars.innerHTML = starsReset;   //reset star rating
 
-    clearInterval(interval); 
-    secondsLabel.innerHTML = "00";  //reset timer
+    var secondsLabel = document.querySelector(".seconds");
+
+    clearInterval(interval);    //reset timer
+    totalSeconds = 0;
+    secondsLabel.innerHTML = "00";  
     
     for ( var x = 0; x <= cardArray.length; x++) {
         cardArray[x].classList.remove("open", "show", "selected", "animated", "wobble", "tada", "matched");
