@@ -126,13 +126,8 @@ var restartModal = document.querySelector(".restart-modal");
 
 
 /****************************************************
-** Functions that initialize values and start game **
+** Functions that initialize board and start game **
 *****************************************************/
-
-// (function gameInit(){
-//     moves.innerText = numberOfMoves;
-//     console.log(moves.innerText);
-// })();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -149,9 +144,6 @@ function shuffle(array) {
     return array;
 }
 shuffle(cards);
-
-
-//restart.addEventListener("click", gameInit);
 
 //Append values from array to ul
 for (i = 0 ; i < card.length; i++) {
@@ -170,7 +162,7 @@ deck.addEventListener("click", function openCard(e){
 
         e.target.className += " open"; //Adds flip animation to selected card
 
-        setTimeout(function() {
+        setTimeout(function() { //Displays class show with a delay of ~.3 sec; Ends on line 229
 
             e.target.className += " show selected"; //Shows image of selected card and adds helping class of selected
             
@@ -234,7 +226,7 @@ deck.addEventListener("click", function openCard(e){
                 setTimeout(function(){showModal();},800)
             }
 
-        },300); //Displays class show with a delay of ~.3 sec
+        },300); 
     }
 });
 
@@ -315,5 +307,5 @@ function restartGame(){
     
     for ( var x = 0; x <= cardArray.length; x++) {
         cardArray[x].classList.remove("open", "show", "selected", "animated", "wobble", "tada", "matched");
-    };  //works but trows error
+    };  //works but trows error "Cannot read property 'classList' of undefined"
 }
