@@ -111,6 +111,7 @@ var starsReset =
 //var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
+var interval = "";
 
 /******************************************* 
 ** Selector of modal and respective spans **
@@ -293,8 +294,8 @@ function restartGame(){
     moves.innerText = 0;    //reset moves
     stars.innerHTML = starsReset;   //reset star rating
 
-    secondsLabel.innerHTML = "00";  //reset timer
     clearInterval(interval); 
+    secondsLabel.innerHTML = "00";  //reset timer
     
     for ( var x = 0; x <= cardArray.length; x++) {
         cardArray[x].classList.remove("open", "show", "selected", "animated", "wobble", "tada", "matched");
