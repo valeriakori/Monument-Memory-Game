@@ -74,7 +74,7 @@ cards =
 
 var deck = document.querySelector(".deck"); //ul that holds all cards (li-elements)
 var card = document.querySelectorAll(".card"); //li that holds card (img-elements)
-var cardArray = [...card];
+let cardArray = [...card];
 
 
 /***************************************************
@@ -111,7 +111,7 @@ var starsReset =
 //var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.querySelector(".seconds");
 var totalSeconds = 0;
-var interval = "";
+var interval;
 
 /******************************************* 
 ** Selector of modal and respective spans **
@@ -122,6 +122,7 @@ var starModal = document.querySelector(".stars-modal");
 var minModal = document.querySelector(".minutes-modal");
 var secModal = document.querySelector(".seconds-modal");
 var movesModal = document.querySelector(".moves-modal");
+var restartModal = document.querySelector(".restart-modal");
 
 
 /****************************************************
@@ -257,7 +258,7 @@ function changeScore() {
 }
 
 function startTimer(){
-    var interval = setInterval(function(){
+    interval = setInterval(function(){
         if (document.getElementsByClassName("matched").length < 16) {
             ++totalSeconds;
         } else if (document.getElementsByClassName("matched").length == 16) {
@@ -275,14 +276,23 @@ function showModal() {
     secModal.innerHTML = secondsLabel.innerHTML;
 }
 
+function closeModal() {
+    modalDisplay.style.display = "none";
+}
+
 restart.addEventListener("click", restartGame);
+restartModal.addEventListener("click", restartGame);
 
 function restartGame(){
 
     console.log("resarted");
 
     // shuffle deck
-    cardArray = shuffle(cardArray);
+    shuffle(cards);
+    for (i = 0 ; i < card.length; i++) {
+        card[i].children.item(0).setAttribute("src", cards[i].img); //Assigns img-path to img tag
+        card[i].setAttribute("data-card-value", cards[i].dataValue); //Assigns data-card-value to li
+      }
 
     // reset all helper variables
     arrayOfSelectedCards=[];
@@ -299,6 +309,9 @@ function restartGame(){
     clearInterval(interval);    //reset timer
     totalSeconds = 0;
     secondsLabel.innerHTML = "00";  
+
+    //close modal
+    closeModal();
     
     for ( var x = 0; x <= cardArray.length; x++) {
         cardArray[x].classList.remove("open", "show", "selected", "animated", "wobble", "tada", "matched");
