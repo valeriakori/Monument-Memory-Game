@@ -161,7 +161,7 @@ for (i = 0 ; i < card.length; i++) {
 deck.addEventListener("click", function openCard(e){
 
     e.preventDefault();
-    startTimer(); //Starts timer 
+    //startTimer(); //Starts timer 
 
     // && !e.target.classList("open", "show", "selected") to differentiate
     if (e.target.hasAttribute("data-card-value")) {
@@ -179,15 +179,17 @@ deck.addEventListener("click", function openCard(e){
             if (cardCounter == 0) {
                 selectedCardOne = e.target;
                 cardCounter++;
+                changeScore(); //Calls addMove function to add 1 to the # of moves
+
             } else if (cardCounter==1) {
                 selectedCardTwo = e.target;
             }
 
             //Comparing Elements of arrayOfSelectedCards
             if (arrayOfSelectedCards.length == 2) {
-            
-                changeScore(); //Calls addMove function to add 1 to the # of moves
 
+                // changeScore(); //Calls addMove function to add 1 to the # of moves
+            
                 if (arrayOfSelectedCards[0]==arrayOfSelectedCards[1]) {
 
                     //Animate Selected Cards
@@ -234,48 +236,6 @@ deck.addEventListener("click", function openCard(e){
     }
 });
 
-
-// Closure Function from https://stackoverflow.com/questions/12713564/function-in-javascript-that-can-be-called-only-once
-// Closure makes it that the function setTime(); can only be called once
-
-var startTimer = (function() {
-    var executed = false;
-    return function() {
-        if (!executed) {
-            executed = true;
-            setInterval(function setTime() {
-                //totalSeconds = 0;
-                if (document.getElementsByClassName("matched").length < 16) {
-                    ++totalSeconds;
-                } else if (document.getElementsByClassName("matched").length == 16) {
-                    clearInterval();
-                }
-                secondsLabel.innerHTML = totalSeconds;
-            }, 1000);
-        }
-    };
-})();
-
-
-// function startTimer(){
-//     var interval = 0;
-//     if (!interval) {
-//         interval = setInterval(increaseTimer, 1000);
-//     }
-// }
-
-// function increaseTimer(){
-//     if (document.getElementsByClassName("matched").length < 16) {
-//         ++totalSeconds;
-//     } else if (document.getElementsByClassName("matched").length == 16) {
-//         clearInterval();
-//     }
-//     secondsLabel.innerHTML = totalSeconds;
-// }
-
-
-
-
 //Increases the amount of moves after each check
 //Removes li/star after set amount of moves
 function changeScore() {
@@ -283,7 +243,10 @@ function changeScore() {
     numberOfMoves++;
     moves.innerText = numberOfMoves;
 
-    if (numberOfMoves == 12) {
+    if (numberOfMoves == 1) {
+        startTimer();
+    }
+    else if (numberOfMoves == 12) {
         //remove first star
         document.querySelector('.fa-star:last-of-type').classList.remove('fa-star');
     } else if (numberOfMoves == 16) {
@@ -292,6 +255,16 @@ function changeScore() {
     }
 }
 
+function startTimer(){
+    var interval = setInterval(function(){
+        if (document.getElementsByClassName("matched").length < 16) {
+            ++totalSeconds;
+        } else if (document.getElementsByClassName("matched").length == 16) {
+            clearInterval();
+        }
+        secondsLabel.innerHTML = totalSeconds;
+    },1000);
+}
 
 function showModal() {
     modalDisplay.style.display = "flex";
@@ -301,25 +274,29 @@ function showModal() {
     secModal.innerHTML = secondsLabel.innerHTML;
 }
 
-restart.addEventListener("click", function restartGame(){
+restart.addEventListener("click", restartGame);
+
+function restartGame(){
 
     console.log("resarted");
-    for ( var x = 0; x <= cardArray.length; x++) {
-        cardArray[x].classList.remove("open", "show", "selected", "animated", "wobble", "tada", "matched");
-    };  //works
-    stars.innerHTML = starsReset; //works
 
-    clearInterval(setTime);
-    secondsLabel.innerHTML = "00";
+    // shuffle deck
+    cardArray = shuffle(cardArray);
 
-
-    shuffle(cards);
+    // reset all helper variables
     arrayOfSelectedCards=[];
     selectedCardOne = "";
     selectedCardTwo = "";
     numberOfMoves = 0;
-    moves.innerText = 0; 
-    secondsLabel.innerHTML = 00;
 
-    console.log("");
-});
+    //reset score board
+    moves.innerText = 0;    //reset moves
+    stars.innerHTML = starsReset;   //reset star rating
+
+    secondsLabel.innerHTML = "00";  //reset timer
+    clearInterval(interval); 
+    
+    for ( var x = 0; x <= cardArray.length; x++) {
+        cardArray[x].classList.remove("open", "show", "selected", "animated", "wobble", "tada", "matched");
+    };  //works but trows error
+}
