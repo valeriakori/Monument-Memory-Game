@@ -155,7 +155,6 @@ for (i = 0 ; i < card.length; i++) {
 deck.addEventListener("click", function openCard(e){
 
     e.preventDefault();
-    //startTimer(); //Starts timer 
 
     // && !e.target.classList("open", "show", "selected") to differentiate
     if (e.target.hasAttribute("data-card-value")) {
