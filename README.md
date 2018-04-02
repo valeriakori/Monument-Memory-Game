@@ -7,6 +7,7 @@ This is a simple 4x4 Memory Game for the Udacity FEND.
 
 Click the link above or here (https://valeriakori.github.io/Monument-Memory-Game/) to open Monument Memory in your browser.
 Once the app has loaded, select to cards to reveal their image and check if they match.
+If they do, you are one match closer to a *total of 8 matches*, if not they turn back around and you make your next move.
 
 A *timer* will start running and a *moves counter* will increase after every check.
 You will loose one star after 12 moves and a second after 16. 
