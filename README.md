@@ -5,7 +5,7 @@
 ##### How to play: 
 This is a simple 4x4 Memory Game for the Udacity FEND.
 
-Click the link above or here to open Monument Memory in your browser.
+Click the link above or here (https://valeriakori.github.io/Monument-Memory-Game/) to open Monument Memory in your browser.
 Once the app has loaded, select to cards to reveal their image and check if they match.
 
 A *timer* will start running and a *moves counter* will increase after every check.
