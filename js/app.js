@@ -181,8 +181,10 @@ deck.addEventListener("click", function openCard(e){
             //Comparing Elements of arrayOfSelectedCards
             if (arrayOfSelectedCards.length == 2) {
 
-                // changeScore(); //Calls addMove function to add 1 to the # of moves
-            
+                //Remove "clickability", i. e. you can't click an card while nomatch animation is run to prevent errors on game board
+                //for duration of animation, gets readded after animation
+                for ( var x = 0; x < cardArray.length; x++) {cardArray[x].style.pointerEvents = "none";};
+                
                 if (arrayOfSelectedCards[0]==arrayOfSelectedCards[1]) {
 
                     //Animate Selected Cards
@@ -195,6 +197,8 @@ deck.addEventListener("click", function openCard(e){
 
                     selectedCardOne = "";
                     selectedCardTwo = "";
+                    //Add "clickability" again
+                    for ( var x = 0; x < cardArray.length; x++) {cardArray[x].style.pointerEvents = "";};
 
                 } else {  
 
@@ -204,9 +208,9 @@ deck.addEventListener("click", function openCard(e){
 
                     setTimeout(function(){
 
-                        //Remove all unnessecary classes to reset cards for further moves
-                        selectedCardOne.classList.remove("open", "show", "selected", "animated", "wobble");
-                        selectedCardTwo.classList.remove("open", "show", "selected", "animated", "wobble");
+                        //Remove classes of open, show, selected, animated and wobble
+                        selectedCardOne.className = "card";
+                        selectedCardTwo.className = "card";
                         
                         //Reset of Array and cardCounter
                         arrayOfSelectedCards=[];
@@ -215,13 +219,15 @@ deck.addEventListener("click", function openCard(e){
                         selectedCardOne = "";
                         selectedCardTwo = "";
 
+                        //Add "clickability" again
+                        for ( var x = 0; x < cardArray.length; x++) {cardArray[x].style.pointerEvents = "";};
+
                     },800);
 
                 }
             }
 
             if (document.getElementsByClassName("matched").length == 16) {
-                //showModal();
                 setTimeout(function(){showModal();},800)
             }
 
@@ -304,7 +310,8 @@ function restartGame(){
     //close modal
     closeModal();
     
-    for ( var x = 0; x <= cardArray.length; x++) {
+    //remove all possible classes a card may have
+    for ( var x = 0; x < cardArray.length; x++) {
         cardArray[x].classList.remove("open", "show", "selected", "animated", "wobble", "tada", "matched");
-    };  //works but trows error "Cannot read property 'classList' of undefined"
+    };  
 }
