@@ -281,9 +281,6 @@ restart.addEventListener("click", restartGame);
 restartModal.addEventListener("click", restartGame);
 
 function restartGame(){
-
-    console.log("resarted");
-
     // shuffle deck
     shuffle(cards);
     for (i = 0 ; i < card.length; i++) {
