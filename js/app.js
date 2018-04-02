@@ -293,6 +293,7 @@ function restartGame(){
     selectedCardOne = "";
     selectedCardTwo = "";
     numberOfMoves = 0;
+    cardCounter = 0;
 
     //reset score board
     moves.innerText = 0;    //reset moves
