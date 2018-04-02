@@ -130,7 +130,7 @@ img {
  ************** Modal Styling *************
  ********** by Richard Middleton **********/
 
- .modal-bg{
+ .modal-bg {
     background-color: rgba(46, 61, 73, 0.5);
     width:100%;
     height:100%;
@@ -165,3 +165,6 @@ img {
     display: inline-block;
 }
 
+.modal-content .restart-modal {
+    cursor: pointer;
+}
