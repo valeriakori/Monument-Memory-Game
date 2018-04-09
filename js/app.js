@@ -222,13 +222,13 @@ deck.addEventListener("click", function openCard(e){
                         //Add "clickability" again
                         for ( var x = 0; x < cardArray.length; x++) {cardArray[x].style.pointerEvents = "";};
 
-                    },800);
+                    },500);
 
                 }
             }
 
             if (document.getElementsByClassName("matched").length == 16) {
-                setTimeout(function(){showModal();},800)
+                setTimeout(function(){showModal();},600)
             }
 
         },300); 
