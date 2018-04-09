@@ -2,70 +2,22 @@
 
 cards = 
 [
-    {
-        dataValue:1,
-        img:"img/beach.png"
-    },
-    {
-        dataValue:1,
-        img:"img/beach.png"
-    },
-    {
-        dataValue:2,
-        img:"img/bigben.png"
-    },
-    {
-        dataValue:2,
-        img:"img/bigben.png"
-    },
-    {
-        dataValue:3,
-        img:"img/eiffel.png"
-    },
-    {
-        dataValue:3,
-        img:"img/eiffel.png"
-    },
-    {
-        dataValue:4,
-        img:"img/liberty.png"
-    },
-    {
-        dataValue:4,
-        img:"img/liberty.png"
-    },
-    {
-        dataValue:5,
-        img:"img/mosque.png"
-    },
-    {
-        dataValue:5,
-        img:"img/mosque.png"
-    },
-    {
-        dataValue:6,
-        img:"img/opera.png"
-    },
-    {
-        dataValue:6,
-        img:"img/opera.png"
-    },
-    {
-        dataValue:7,
-        img:"img/pisa.png"
-    },
-    {
-        dataValue:7,
-        img:"img/pisa.png"
-    },
-    {
-        dataValue:8,
-        img:"img/temple.png"
-    },
-    {
-        dataValue:8,
-        img:"img/temple.png"
-    }
+    {dataValue:1, img:"img/beach.png"},
+    {dataValue:1, img:"img/beach.png"},
+    {dataValue:2, img:"img/bigben.png"},
+    {dataValue:2, img:"img/bigben.png"},
+    {dataValue:3, img:"img/eiffel.png"},
+    {dataValue:3, img:"img/eiffel.png"},
+    {dataValue:4, img:"img/liberty.png"},
+    {dataValue:4, img:"img/liberty.png"},
+    {dataValue:5, img:"img/mosque.png"},
+    {dataValue:5, img:"img/mosque.png"},
+    {dataValue:6, img:"img/opera.png"},
+    {dataValue:6, img:"img/opera.png"},
+    {dataValue:7, img:"img/pisa.png"},
+    {dataValue:7, img:"img/pisa.png"},
+    {dataValue:8, img:"img/temple.png"},
+    {dataValue:8, img:"img/temple.png"}
 ]
 
 /******************************* 
@@ -222,7 +174,7 @@ deck.addEventListener("click", function openCard(e){
                         //Add "clickability" again
                         for ( var x = 0; x < cardArray.length; x++) {cardArray[x].style.pointerEvents = "";};
 
-                    },500);
+                    },750);
 
                 }
             }
