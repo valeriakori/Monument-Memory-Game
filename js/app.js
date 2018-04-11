@@ -109,7 +109,7 @@ deck.addEventListener("click", function openCard(e){
     e.preventDefault();
 
     // && !e.target.classList("open", "show", "selected") to differentiate
-    if (e.target.hasAttribute("data-card-value")) {
+    if (e.target.hasAttribute("data-card-value") && !e.target.hasAttribute("open")) {
 
         e.target.className += " open"; //Adds flip animation to selected card
 
@@ -126,7 +126,7 @@ deck.addEventListener("click", function openCard(e){
                 cardCounter++;
                 changeScore(); //Calls addMove function to add 1 to the # of moves
 
-            } else if (cardCounter==1) {
+            } else if (cardCounter == 1) {
                 selectedCardTwo = e.target;
             }
 
